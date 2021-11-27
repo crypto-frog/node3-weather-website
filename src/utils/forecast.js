@@ -9,6 +9,7 @@ const forecast = function (latitude, longitude, callback) {
     } else if (response.body.error) {
       callback(response.body.error, undefined);
     } else {
+      console.log(response.body);
       callback(undefined, response.body.current);
     }
   });

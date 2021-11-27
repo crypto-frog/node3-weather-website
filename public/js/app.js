@@ -8,11 +8,15 @@ const weatherForm = document.querySelector("form");
 const search = document.querySelector("input");
 const messageOne = document.querySelector("#message-1");
 const messageTwo = document.querySelector("#message-2");
+const messageThree = document.querySelector("#message-3");
+const messageFour = document.querySelector("#message-4");
 
 weatherForm.addEventListener("submit", (e) => {
   e.preventDefault();
   messageOne.textContent = "loading....";
   messageTwo.textContent = "";
+  messageThree.textContent = "";
+  messageFour.textContent = "";
 
   fetch(`/weather?address=${search.value}`)
     .then((response) => response.json())
@@ -22,8 +26,13 @@ weatherForm.addEventListener("submit", (e) => {
         messageOne.textContent = data.error;
       } else {
         messageOne.textContent = data.fdata.weather_descriptions;
-        messageTwo.textContent = data.location;
+        messageTwo.textContent = data.fdata.temperature;
+        messageThree.textContent = data.fdata.feelslike;
+        messageFour.textContent = data.location;
       }
       console.log(data.fdata.weather_descriptions);
+      console.log(
+        `Temprature is ${data.fdata.temperature} deg. F., but it feels like ${data.fdata.feelslike} deg. F.`
+      );
     });
 });
